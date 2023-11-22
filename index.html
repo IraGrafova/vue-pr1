@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Практическая работа 1</title>
+    <link rel="stylesheet" href="./index.css" />
+  </head>
+  <body>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+    <div id="app">
+      <h1>Список задач</h1>
+      <div>Осталось сделать задач: <span class="counter">2</span></div>
+      <div class="list">
+        <div class="item" v-for="task in tasks">
+          <input type="checkbox" />
+          {{task}}
+        </div>
+      </div>
+      <div class="item done"></div>
+      <div>Планы на день:</div>
+      <div class="list">
+        <div class="item" v-for="task in day">
+          <input type="checkbox" />
+          {{task}}
+        </div>
+      </div>
+      <div class="form">
+        <input />
+        <button v-bind:type="type" v-bind:disabled="isDisabled">
+          Добавить
+        </button>
+      </div>
+    </div>
+    <script src="./index.js"></script>
+  </body>
+</html>
