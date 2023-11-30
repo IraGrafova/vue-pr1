@@ -2,34 +2,68 @@
 <html lang="ru">
   <head>
     <meta charset="UTF-8" />
-    <title>Практическая работа 1</title>
+    <title>Практическая работа</title>
     <link rel="stylesheet" href="./index.css" />
   </head>
   <body>
     <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
     <div id="app">
-      <h1>Список задач</h1>
-      <div>Осталось сделать задач: <span class="counter">2</span></div>
-      <div class="list">
-        <div class="item" v-for="task in tasks">
-          <input type="checkbox" />
-          {{task}}
-        </div>
+      <h1>Список задач на месяц:</h1>
+      <div v-if="count() === 0">Вы великолепны!</div>  <!-- почему в видео использовали не строгое равно? == -->
+      <div v-else-if="count() === 1">Остался последний рывок!</div>
+      <div v-else>
+        Осталось сделать задач: <span class="counter">{{count ()}}</span>
       </div>
-      <div class="item done"></div>
-      <div>Планы на день:</div>
       <div class="list">
-        <div class="item" v-for="task in day">
-          <input type="checkbox" />
-          {{task}}
+        <div
+          class="item"
+          v-bind:class="{done: task.done}"
+          v-for="task in tasks"
+        >
+          <input type="checkbox" v-model="task.done" />
+          {{task.text}}
         </div>
       </div>
       <div class="form">
-        <input />
-        <button v-bind:type="type" v-bind:disabled="isDisabled">
+        <input v-model="message" v-on:keyup.enter="addTask"/>
+        <button
+          v-bind:type="type"
+          v-bind:disabled="isDisabled"
+          v-on:click="addTask"
+          
+        >
           Добавить
         </button>
       </div>
+      <transition name="slide-fade">
+      <img src="./f1efceb1.png" alt="Шикарно" v-show="count() === 0">
+    </transition>
+
+      <h1>Планы на день:</h1>
+      <div v-if="countToday() === 0">Вы великолепны!</div>  <!-- почему в видео использовали не строгое равно? == -->
+      <div v-else-if="countToday() === 1">Остался последний рывок!</div>
+      <div v-else>
+        Осталось сделать задач: <span class="counter">{{countToday ()}}</span>
+      </div>
+      <div class="list">
+        <div class="item" v-bind:class="{done: task.done}" v-for="task in day">
+          <input type="checkbox" v-model="task.done" />
+          {{task.text}}
+        </div>
+      </div>
+      <div class="form">
+        <input v-model="message" v-on:keyup.enter="addTaskForDay"/>
+        <button
+          v-bind:type="type"
+          v-bind:disabled="isDisabled"
+          v-on:click="addTaskForDay"
+        >
+          Добавить
+        </button>
+      </div>
+    <transition name="slide-fade">
+      <img src="./f1efceb1.png" alt="Шикарно" v-show="countToday() === 0">
+    </transition>
     </div>
     <script src="./index.js"></script>
   </body>
