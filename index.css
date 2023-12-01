@@ -12,10 +12,12 @@
   .form {
     margin: 20px 0;
   }
-  /* Анимации появления и исчезновения могут иметь */
+
+/* Анимации появления и исчезновения могут иметь */
 /* различные продолжительности и динамику.       */
 .slide-fade-enter-active {
   transition: all .3s ease;
+  transform: rotate(90deg)
 }
 .slide-fade-leave-active {
   transition: all .8s cubic-bezier(1.0, 0.5, 0.8, 1.0);
